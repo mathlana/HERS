@@ -1,0 +1,18 @@
+<ion-header [translucent]="true">
+  <ion-back-button defaultHref="/home-page" slot="start"></ion-back-button>
+  <ion-toolbar>
+    <ion-title>Pickups</ion-title>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <app-pickup-card *ngFor="let pickup of pickups"></app-pickup-card>
+  <ion-buttons>
+    <ion-button routerLink="/home-page">
+      Home page
+    </ion-button>
+  </ion-buttons>
+</ion-content>
