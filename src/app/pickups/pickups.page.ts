@@ -3,8 +3,8 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
-import { PickupCardComponent } from 'src/app/pages/pickups/pickup-card/pickup-card.component';
-import {Pickup} from "../../interfaces/pickup";
+import { PickupCardComponent } from 'src/app/pickups/pickup-card/pickup-card.component';
+import {Pickup} from "../interfaces/pickup";
 
 
 @Component({

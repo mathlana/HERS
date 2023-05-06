@@ -2,7 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
-import {Pickup} from "../../../interfaces/pickup";
+import {Pickup} from "../../interfaces/pickup";
 import { Router, RouterModule } from '@angular/router';
 
 @Component({
