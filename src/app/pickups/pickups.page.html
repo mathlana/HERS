@@ -9,10 +9,6 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <app-pickup-card *ngFor="let pickup of pickups"></app-pickup-card>
-  <ion-buttons>
-    <ion-button routerLink="/home-page">
-      Home page
-    </ion-button>
-  </ion-buttons>
+ <app-pickup-card *ngFor="let pickup of pickups" [pickup]="pickup" [routerLink]="pickup.id"></app-pickup-card>
+
 </ion-content>

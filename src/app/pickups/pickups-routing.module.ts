@@ -6,15 +6,9 @@ const routes: Routes = [
   {
     path: '',
     component: PickupsPage,
-    children: [
-                {
-                  path: 'pickup',
-                  loadChildren: () => import('./pickup/pickup.module').then( m => m.PickupPageModule)
-                }
-              ]
   },
   {
-    path: 'pickup',
+    path: ':pickupId',
     loadChildren: () => import('./pickup/pickup.module').then( m => m.PickupPageModule)
   },
   

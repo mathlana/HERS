@@ -1,26 +1,23 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 
-import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
-import { IonicModule } from '@ionic/angular';
-import { PickupCardComponent } from 'src/app/pickups/pickup-card/pickup-card.component';
-import {Pickup} from "../interfaces/pickup";
+
+import { PickupModel } from "./pickup.model";
+import { MenuController } from '@ionic/angular';
+import { PickupsService } from './pickups.service';
 
 
 @Component({
   selector: 'app-pickups',
   templateUrl: './pickups.page.html',
   styleUrls: ['./pickups.page.scss'],
-  standalone:true,
-  imports: [IonicModule, CommonModule, FormsModule , PickupCardComponent]
 })
 export class PickupsPage implements OnInit, OnDestroy  {
-  pickups: Pickup[] = [
-                        {id:1,status: 'hold',createdAt: '12/04/2022',updatedAt: '13/04/2022',notes:' Two pair of pants.'},
-                        {id:2,status: 'hold',createdAt: '12/04/2022',updatedAt: '13/04/2022',notes:' Two pair of pants.'}
-                      ];
-  constructor() { 
+  
+  pickups: PickupModel[];
+
+  constructor(private menuCrtl: MenuController, private pickupsService: PickupsService) { 
     console.log('constructor');
+    this.pickups = this.pickupsService.pickups;
   }
 
   ngOnInit() {

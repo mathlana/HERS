@@ -1,5 +1,5 @@
-export interface Pickup {
-    id: number,
+export interface PickupModel {
+    id: string,
     status: string;
     createdAt: string;
     updatedAt: string;

@@ -25,7 +25,7 @@
 </ion-card> -->
 <ion-card>
   <ion-card-content>
-    <ion-item lines="none" slot="start"  (click)="EditPickup()">
+    <ion-item lines="none" slot="start">
       <ion-icon *ngIf="pickup.status == 'hold'" name="hourglass-outline" slot="start" color="warning"></ion-icon>
       <ion-icon *ngIf="pickup.status == 'Processing'" name="archive-outline" slot="start" color="secondary"></ion-icon>
       <ion-icon *ngIf="pickup.status == 'Finished'" name="checkmark-circle-outline" slot="start" color="primary"></ion-icon>
