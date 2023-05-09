@@ -2,6 +2,11 @@ ion-buttons{
     display: flex;
     justify-content: space-evenly;
 }
+.add-button{
+    display: flex;
+    justify-content: flex-end;
+    margin-right: 10px;
+}
 ion-button{
     text-align: center;
     text-transform: uppercase;

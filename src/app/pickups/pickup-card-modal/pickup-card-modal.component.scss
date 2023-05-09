@@ -1,23 +1,20 @@
 ion-buttons{
     display: flex;
-    flex-direction: column;
+    justify-content: space-evenly;
 }
 ion-button{
     text-align: center;
     text-transform: uppercase;
     justify-content: center;
-    border:1px solid var(--custom-green);
     background-color: var(--custom-green);
     color:white;
-    width: 100%;
-    margin-top: 10px;
+}
+button.button-native{
+    background: var(--custom-green);
 }
 ion-header{
     background-color: var(--custom-green);
     border-bottom: 1px solid  var(--custom-green);
-}
-ion-toolbar{
-    background-color: var(--custom-light-green);
 }
 .list-ios{
     background-color: var(--custom-green);
@@ -34,7 +31,4 @@ ion-title{
 }
 main{
     background:var(--custom-light-green);
-}
-.validation-note{
-    color:#c30000;
-}
+  }

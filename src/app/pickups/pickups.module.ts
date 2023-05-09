@@ -5,6 +5,7 @@ import { IonicModule } from '@ionic/angular';
 import { PickupsPageRoutingModule } from './pickups-routing.module';
 import { PickupsPage } from './pickups.page';
 import { PickupCardComponent } from './pickup-card/pickup-card.component';
+import { PickupCardModalComponent } from './pickup-card-modal/pickup-card-modal.component';
 
 
 @NgModule({
@@ -14,6 +15,6 @@ import { PickupCardComponent } from './pickup-card/pickup-card.component';
     IonicModule,
     PickupsPageRoutingModule
   ],
-  declarations: [PickupsPage, PickupCardComponent]
+  declarations: [PickupsPage, PickupCardComponent, PickupCardModalComponent]
 })
 export class PickupsPageModule {}

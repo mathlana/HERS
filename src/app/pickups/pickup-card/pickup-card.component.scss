@@ -1,0 +1,37 @@
+ion-buttons{
+    display: flex;
+    justify-content: space-evenly;
+}
+.add-button{
+    display: flex;
+    justify-content: flex-end;
+    margin-right: 10px;
+}
+ion-button{
+    text-align: center;
+    text-transform: uppercase;
+    justify-content: center;
+    border:1px solid var(--custom-green);
+    background-color: var(--custom-green);
+    color:white;
+}
+ion-header{
+    background-color: var(--custom-green);
+    border-bottom: 1px solid  var(--custom-green);
+}
+.list-ios{
+    background-color: var(--custom-green);
+}
+ion-back-button{
+    float:left;
+    color:white;
+}
+ion-menu-button{
+    color: var(--custom-green);
+}
+ion-title{
+    color: var(--custom-green);
+}
+main{
+    background:var(--custom-light-green);
+  }

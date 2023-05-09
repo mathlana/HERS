@@ -1,0 +1,42 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>{{title}}</ion-title>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-buttons slot="end" (click)="onClose()">
+      <ion-icon name="close"></ion-icon>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <form #form="ngForm" (ngSubmit)="onCreatePickup()">
+    <ion-card>
+      <ion-card-content>
+        <ion-grid>
+          <ion-row>
+            <ion-col>
+              <ion-item size-sm="6" offset-sm="3">
+                <ion-label position="floating">Status</ion-label>
+                <ion-input type="text" ngModel name="status" required></ion-input>
+              </ion-item>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col>
+              <ion-item size-sm="6" offset-sm="3">
+                <ion-label position="floating">Note</ion-label>
+                <ion-textarea type="text" rows="5" ngModel name="note" required></ion-textarea>
+              </ion-item>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col>
+              <ion-button fill="clear" size="full" type="submit" [disabled]="form.invalid">Create</ion-button>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-card-content>
+    </ion-card>
+  </form>
+</ion-content>

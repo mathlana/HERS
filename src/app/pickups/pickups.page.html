@@ -10,5 +10,10 @@
 
 <ion-content [fullscreen]="true">
  <app-pickup-card *ngFor="let pickup of pickups" [pickup]="pickup" [routerLink]="pickup.id"></app-pickup-card>
-
+ <ion-buttons class="add-button">
+  <ion-fab-button (click)="openModal()" size="small" color="custom-green" slot="end">
+    <ion-icon name="add"></ion-icon>
+  </ion-fab-button>
+</ion-buttons>
 </ion-content>
+
