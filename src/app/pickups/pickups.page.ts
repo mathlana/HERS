@@ -5,7 +5,7 @@ import { PickupModel } from "./pickup.model";
 import { ModalController } from '@ionic/angular';
 import { PickupsService } from './pickups.service';
 import { PickupCardModalComponent } from './pickup-card-modal/pickup-card-modal.component';
-
+import {Subscription} from 'rxjs';
 
 @Component({
   selector: 'app-pickups',
@@ -21,7 +21,7 @@ export class PickupsPage implements OnInit ,OnDestroy {
     // this.pickups = this.pickupsService.pickups;
   }
 
-  ngOnInit(): void {
+  ngOnInit() {
     //dodajjemo citate sa firebase-a na aplikaciju -next metoda
     // this.pickupsService.getPickups().subscribe( (pickupData) => {
       // console.log(pickupData);
@@ -34,7 +34,7 @@ export class PickupsPage implements OnInit ,OnDestroy {
       //       status: pickupData[key].status,
       //       createdAt: '10/03/2023' ,
       //       updatedAt: '10/03/2023',
-      //       notes: pickupData[key].note
+      //       notes: pickupData[key].notes
       //     })
       //   }
       // }
@@ -44,7 +44,8 @@ export class PickupsPage implements OnInit ,OnDestroy {
     // });
   
     //kakoje sad pickus observable onda se subsc na nju
-    this.pickupSubscription = this.pickupsService.pickups.subscribe( (pickupData) => {
+    
+    this.pickupSubscription = this.pickupsService.pickups.subscribe( (pickups) => {
       //next-metoda
       this.pickups = pickups;
     });
@@ -52,7 +53,7 @@ export class PickupsPage implements OnInit ,OnDestroy {
 
   ionViewVillEnter(){
     //prebacili iz ngOnInit metode
-    this.pickupsService.getPickups().subscribe( (pickupData) => {
+    this.pickupsService.getPickups().subscribe( (pickups) => {
       // this.pickups = pickups;
     });
   }
@@ -71,8 +72,9 @@ export class PickupsPage implements OnInit ,OnDestroy {
         console.log(resultData);
         //posto je rezultat post metode observable mi se subscribujemo na nju 
         //tako dodajemo u firebase objekte
-        this.pickupsService.createPickup(resultData.data.pickupData.status,resultData.data.pickupData.note).subscribe(
-          (pickups:{name:string}) => {
+        this.pickupsService.createPickup(resultData.data.pickupData.status,resultData.data.pickupData.notes
+          ).subscribe(
+          (pickups) => {
 
           //hocemo da dobijemo novi prosireni niz - i dobijamo ga iz metode createPickup
           // console.log(res);
