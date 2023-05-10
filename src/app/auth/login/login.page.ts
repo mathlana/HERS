@@ -3,6 +3,7 @@ import { AuthService } from '../auth.service';
 import { Router } from '@angular/router';
 import { NgForm } from '@angular/forms';
 
+
 @Component({
   selector: 'app-login',
   templateUrl: './login.page.html',
@@ -16,8 +17,11 @@ export class LoginPage implements OnInit {
   }
   onLogin(form: NgForm){
     console.log(form);
-    this.authService.login();
-    this.router.navigateByUrl('/pickups');
+    this.authService.login(form.value).subscribe(resData => {
+      console.log('prijava uspela');
+      console.log(resData);
+      this.router.navigateByUrl('/pickups');
+    });
   }
 
 }
