@@ -23,8 +23,15 @@
           <p>Notes: {{pickup.notes}}</p>
         </ion-label>
       </ion-item>
+      <ion-buttons slot="end">
+        <ion-fab-button size="small" color="tertiary" (click)="onEditPickup()">
+          <ion-icon name="pencil"></ion-icon>
+        </ion-fab-button>
+        <ion-fab-button size="small" color="tertiary" (click)="onDeletePickup()">
+          <ion-icon name="trash"></ion-icon>
+        </ion-fab-button>
+      </ion-buttons>
     </ion-card-content>
   </ion-card>
-  
 </ion-content>
 

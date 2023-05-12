@@ -16,5 +16,6 @@ import { PickupCardModalComponent } from './pickup-card-modal/pickup-card-modal.
     PickupsPageRoutingModule
   ],
   declarations: [PickupsPage, PickupCardComponent, PickupCardModalComponent]
+
 })
 export class PickupsPageModule {}

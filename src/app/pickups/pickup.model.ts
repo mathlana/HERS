@@ -1,7 +1,12 @@
-export interface PickupModel {
-    id: string,
-    status: string;
-    createdAt: string;
-    updatedAt: string;
-    notes: string;
+export class PickupModel {
+    
+    constructor(
+        public id:string | null,
+        public status:string, 
+        public createdAt: string, 
+        public updatedAt:string,
+        public notes:string, 
+        public userId:string | null){
+
+    }
 }
