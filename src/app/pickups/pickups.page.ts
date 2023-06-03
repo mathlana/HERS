@@ -6,6 +6,8 @@ import { ModalController } from '@ionic/angular';
 import { PickupsService } from './pickups.service';
 import { PickupCardModalComponent } from './pickup-card-modal/pickup-card-modal.component';
 import {Subscription} from 'rxjs';
+import { AuthService } from '../auth/auth.service';
+
 
 @Component({
   selector: 'app-pickups',
@@ -13,26 +15,49 @@ import {Subscription} from 'rxjs';
   styleUrls: ['./pickups.page.scss'],
 })
 export class PickupsPage implements OnInit ,OnDestroy {
-  
+  private currentUserId: string | null;
+  public usersPickups : PickupModel[] = [];
+  userpickups: PickupModel[];
   pickups: PickupModel[];
   private pickupSubscription: Subscription;
 
-  constructor(private modalCtrl: ModalController, private pickupsService: PickupsService) { 
+  constructor(private modalCtrl: ModalController, private authService: AuthService,private pickupsService: PickupsService) { 
     // this.pickups = this.pickupsService.pickups;
   }
 
   ngOnInit() {
     //dodajjemo citate sa firebase-a na aplikaciju -next metoda
     //kakoje sad pickus observable onda se subsc na nju
+    this.authService.userId.subscribe(
+      (userId) => {
+        this.currentUserId = userId;
+      }
+    );
     this.pickupSubscription = this.pickupsService.pickups.subscribe( (pickups) => {
-      this.pickups = pickups;
+      // this.pickups = pickups;
     });
   }
 
   ionViewWillEnter(){
     //prebacili iz ngOnInit metode
     this.pickupsService.getPickups().subscribe( (pickups) => {
-      // this.pickups = pickups;
+      for(let pickup of pickups){
+        if(this.currentUserId == pickup.userId)
+        {
+          console.log('napravio trenutni user!');
+          this.usersPickups.push(new PickupModel( pickup.id,
+                                                  pickup.status,
+                                                  pickup.address,
+                                                  pickup.createdAt,
+                                                  pickup.updatedAt,
+                                                  pickup.notes, 
+                                                  pickup.userId));
+          console.log(this.usersPickups);
+
+        }
+      }
+      console.log(this.usersPickups)
+      this.pickups = this.usersPickups;
     });
   }
 

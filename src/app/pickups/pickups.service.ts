@@ -71,7 +71,7 @@ export class PickupsService {
     //povratna vrednost je id pickupa mi je presrecemo sa map operatorom i prosirujemo niz u servisu sa upravo dodatim citatom
   }
   getPickups() {
-
+    let currentUserId: string | null;
     return this.authService.token.pipe(
       take(1),
       switchMap((token) => {
@@ -83,6 +83,9 @@ export class PickupsService {
   
         for(const key in pickupsData){
           if(pickupsData.hasOwnProperty(key)){
+            // console.log('pickupsData');
+            // console.log(pickupsData);
+
             pickups.push(new PickupModel(key,
               pickupsData[key].status,
               pickupsData[key].address,
