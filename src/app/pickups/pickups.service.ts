@@ -162,6 +162,9 @@ export class PickupsService {
   }
 
   deletePickup(id: string | null) {
+    console.log('id');
+    console.log(id);
+
     return this.authService.token.pipe(
       take(1),
       switchMap((token) => {
@@ -174,6 +177,7 @@ export class PickupsService {
       }),
       take(1),
       tap((pickups) => {
+
         this._pickups.next(pickups.filter((p) => p.id !== id));
       })
     );

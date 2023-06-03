@@ -16,15 +16,15 @@ export class AuthGuard implements CanLoad {
     route: Route,
     segments: UrlSegment[]): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree{
     return this.authService.isUserAuthenticated
-    .pipe(
-      take(1), 
-      tap( isAuthenticated => {
-                                if(!isAuthenticated){
-                                  console.log('lana radi');
-                                  this.router.navigateByUrl('/login');
-                                }
-                              }
-          )
-    );
+                                                .pipe(
+                                                  take(1), 
+                                                  tap( isAuthenticated => {
+                                                                            if(!isAuthenticated){
+                                                                              console.log('lana radi');
+                                                                              this.router.navigateByUrl('/login');
+                                                                            }
+                                                                          }
+                                                      )
+                                                );
   }
 }

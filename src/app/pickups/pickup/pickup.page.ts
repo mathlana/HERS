@@ -28,9 +28,7 @@ export class PickupPage implements OnInit {
 
       this.isLoading = true;
 
-      this.pickupsService
-        .getPickup(paramMap.get('pickupId'))
-        .subscribe((pickup) => {
+      this.pickupsService.getPickup(paramMap.get('pickupId')).subscribe((pickup) => {
           this.pickup = pickup;
           this.isLoading = false;
         });
@@ -40,8 +38,10 @@ export class PickupPage implements OnInit {
     this.loadingCtrl.create({message: 'Deleting...'}).then(loadingEl => {
       loadingEl.present();
       this.pickupsService.deletePickup(this.pickup.id).subscribe(() => {
+
         loadingEl.dismiss();
         this.navCtrl.navigateBack('/pickups');
+
       });
     });
   }

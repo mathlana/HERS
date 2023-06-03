@@ -16,8 +16,6 @@ interface AuthResponseData{
   registered?: boolean;
 }
 interface UserData{
-  name?: string;
-  surname?: string;
   email: string;
   password:string;
 }
@@ -74,6 +72,7 @@ export class AuthService {
   }
 
   register(user: UserData){
+
     this._isUserAuthenticated = true;
 
     return this.http.post<AuthResponseData>(`https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=${environment.firebaseAPI}`, 

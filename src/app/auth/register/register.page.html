@@ -34,12 +34,11 @@
           <p class="validation-note">This is required field.</p>
         </ion-item>
         <ion-item>
-          <ion-label position="floating">Confirm password</ion-label>
-          <ion-input area-label="Confirm password" type="password" formControlName="confirmPassword"></ion-input>
-        </ion-item>
-        <ion-item>
           <ion-label position="floating">Phone number</ion-label>
           <ion-input area-label="Phone number" type="tel" formControlName="phoneNumber"></ion-input>
+        </ion-item>
+        <ion-item lines="none" *ngIf="registerForm.get('phoneNumber')!.invalid && registerForm.get('phoneNumber')!.touched">
+          <p class="validation-note">Only numerical values allowed.</p>
         </ion-item>
       </ion-card-content>
     </ion-card>
@@ -54,27 +53,25 @@
         </ion-item>
         <ion-item>
           <ion-label position="floating">Number</ion-label>
-          <ion-input area-label="Number" type="tel"></ion-input>
+          <ion-input area-label="Number" type="tel" formControlName="addressNumber"></ion-input>
         </ion-item>
-        <ion-item>
-          <ion-label position="floating">Neighborhood</ion-label>
-          <ion-input area-label="Neighborhood" type="text" formControlName="neighborhood"></ion-input>
-        </ion-item>
-        <ion-item>
-          <ion-label position="floating">Complement</ion-label>
-          <ion-input area-label="Complement" type="text" formControlName="complement"></ion-input>
+        <ion-item lines="none" *ngIf="registerForm.get('addressNumber')!.invalid && registerForm.get('addressNumber')!.touched">
+          <p class="validation-note">Only numerical values allowed.</p>
         </ion-item>
         <ion-item>
           <ion-label position="floating">Zip Code</ion-label>
           <ion-input area-label="Zip Code" type="tel" formControlName="zip"></ion-input>
         </ion-item>
-        <ion-item>
-          <ion-label position="floating">State</ion-label>
-          <ion-input area-label="State" type="text" formControlName="state"></ion-input>
+        <ion-item lines="none" *ngIf="registerForm.get('zip')!.invalid && registerForm.get('zip')!.touched">
+          <p class="validation-note">Only numerical values allowed.</p>
         </ion-item>
         <ion-item>
           <ion-label position="floating">City</ion-label>
           <ion-input area-label="City" type="text" formControlName="city"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label position="floating">State</ion-label>
+          <ion-input area-label="State" type="text" formControlName="state"></ion-input>
         </ion-item>
       </ion-card-content>
     </ion-card>
