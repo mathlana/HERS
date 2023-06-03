@@ -24,6 +24,12 @@ ion-menu-button{
 ion-title{
     color: var(--custom-green);
 }
-main{
-    background:var(--custom-light-green);
+ion-text h2{
+    padding-left: 20px;
+    padding-right: 20px;
+    font-weight: bold;
+}
+ion-text h3{
+    padding-left: 10px;
+    padding-right: 10px;
 }

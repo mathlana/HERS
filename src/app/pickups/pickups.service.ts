@@ -7,6 +7,7 @@ import { AuthService } from '../auth/auth.service';
 
 interface PickupData{
   status: string;
+  address: string;
   createdAt: string;
   updatedAt:string;
   notes: string;
@@ -30,7 +31,7 @@ export class PickupsService {
 
   }
 
-  createPickup(status: string, notes:string){
+  createPickup(status: string,address:string, notes:string){
     let generatedId:any;
     let newPickup: PickupModel;
     let fetchedUserId: string | null;
@@ -46,6 +47,7 @@ export class PickupsService {
         newPickup = new PickupModel(
           null,
           status,
+          address,
           '11/11/2022',
           '11/11/2022',
           notes,
@@ -83,6 +85,7 @@ export class PickupsService {
           if(pickupsData.hasOwnProperty(key)){
             pickups.push(new PickupModel(key,
               pickupsData[key].status,
+              pickupsData[key].address,
               pickupsData[key].createdAt,
               pickupsData[key].updatedAt,
               pickupsData[key].notes, 
@@ -111,6 +114,7 @@ export class PickupsService {
         return new PickupModel(
           id,
           resData.status,
+          resData.address,
           resData.createdAt,
           resData.updatedAt,
           resData.notes,
@@ -122,6 +126,7 @@ export class PickupsService {
   editPickup(
     id: string | null,
     status: string,
+    address: string,
     createdAt: string,
     updatedAt: string,
     notes: string,
@@ -134,6 +139,7 @@ export class PickupsService {
           `https://hers-app-2023-default-rtdb.europe-west1.firebasedatabase.app/pickups/${id}.json?auth=${token}`,
           {
             status,
+            address,
             createdAt,
             updatedAt,
             notes,
@@ -151,6 +157,7 @@ export class PickupsService {
         updatedPickups[updatedPickupIndex] = new PickupModel(
           id,
           status,
+          address,
           createdAt,
           updatedAt,
           notes,

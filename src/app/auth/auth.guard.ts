@@ -20,7 +20,7 @@ export class AuthGuard implements CanLoad {
                                                   take(1), 
                                                   tap( isAuthenticated => {
                                                                             if(!isAuthenticated){
-                                                                              console.log('lana radi');
+                                                                              console.log('auth radi');
                                                                               this.router.navigateByUrl('/login');
                                                                             }
                                                                           }

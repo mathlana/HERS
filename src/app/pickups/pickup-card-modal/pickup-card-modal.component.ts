@@ -25,6 +25,7 @@ export class PickupCardModalComponent  implements OnInit {
     this.modalCtrl.dismiss( {
       pickupData: {
         status:this.form.value['status'],
+        address: this.form.value['address'],
         notes: this.form.value['notes']
       }
     }, 'confirm');

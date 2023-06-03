@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { PickupModel } from '../pickup.model';
 import { ActivatedRoute } from '@angular/router';
 import { PickupsService } from '../pickups.service';
@@ -11,7 +11,7 @@ import { PickupCardModalComponent } from '../pickup-card-modal/pickup-card-modal
   styleUrls: ['./pickup.page.scss'],
 })
 export class PickupPage implements OnInit {
-  pickup: PickupModel;
+  @Input() pickup: PickupModel = {id:'p3',status: 'hold', address:'addr', createdAt: '11/04/2022',updatedAt: '13/04/2022',notes:' Two pair of pants.',userId:'xx'};
   isLoading = false;
 
   constructor(private route: ActivatedRoute, private pickupsService: PickupsService, private navCtrl: NavController,
@@ -50,7 +50,7 @@ export class PickupPage implements OnInit {
     this.modalCtrl
       .create({
         component: PickupCardModalComponent,
-        componentProps: {title: 'Edit pickup', author: this.pickup.status, text: this.pickup.notes},
+        componentProps: {title: 'Edit pickup', status: this.pickup.status, address: this.pickup.address, notes: this.pickup.notes},
       })
       .then((modal) => {
         modal.present();
@@ -66,6 +66,7 @@ export class PickupPage implements OnInit {
                 .editPickup(
                   this.pickup.id,
                   resultData.data.pickupData.status,
+                  resultData.data.pickupData.address,
                   this.pickup.createdAt,
                   this.pickup.updatedAt,
                   resultData.data.pickupData.notes,
@@ -73,6 +74,7 @@ export class PickupPage implements OnInit {
                 )
                 .subscribe((pickups) => {
                   this.pickup.status = resultData.data.pickupData.status;
+                  this.pickup.address = resultData.data.pickupData.address;
                   this.pickup.notes = resultData.data.pickupData.notes;
                   loadingEl.dismiss();
                 });

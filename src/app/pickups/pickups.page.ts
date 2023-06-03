@@ -51,7 +51,7 @@ export class PickupsPage implements OnInit ,OnDestroy {
         console.log(resultData);
         //posto je rezultat post metode observable mi se subscribujemo na nju 
         //tako dodajemo u firebase objekte
-        this.pickupsService.createPickup(resultData.data.pickupData.status,resultData.data.pickupData.notes
+        this.pickupsService.createPickup(resultData.data.pickupData.status,resultData.data.pickupData.address,resultData.data.pickupData.notes
           ).subscribe(
           (pickups) => {
           //hocemo da dobijemo novi prosireni niz - i dobijamo ga iz metode createPickup
