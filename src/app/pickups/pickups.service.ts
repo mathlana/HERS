@@ -35,7 +35,7 @@ export class PickupsService {
 
   }
 
-  createPickup(status: string,address:string,city:string,zip:string, notes:string){
+  createPickup(status: 'hold',address:string,city:string,zip:string, notes:string){
     let generatedId:any;
     let newPickup: PickupModel;
     let fetchedUserId: string | null;
@@ -50,7 +50,7 @@ export class PickupsService {
       switchMap((token) => {
         newPickup = new PickupModel(
           null,
-          status,
+          'hold',
           address,
           city,
           zip,

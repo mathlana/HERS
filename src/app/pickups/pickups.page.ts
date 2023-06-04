@@ -22,20 +22,20 @@ export class PickupsPage implements OnInit ,OnDestroy {
   private pickupSubscription: Subscription;
 
   constructor(private modalCtrl: ModalController, private authService: AuthService,private pickupsService: PickupsService) { 
-    // this.pickups = this.pickupsService.pickups;
   }
 
   ngOnInit() {
-    //dodajjemo citate sa firebase-a na aplikaciju -next metoda
-    //kakoje sad pickus observable onda se subsc na nju
-    console.log('onInit');
     this.authService.userId.subscribe(
       (userId) => {
         this.currentUserId = userId;
       }
     );
-    this.pickupSubscription = this.pickupsService.pickups.subscribe( (pickups) => {
+    
+  }
 
+  ionViewWillEnter(){
+    this.pickupsService.getPickups().subscribe( (pickups) => {
+     
       this.usersPickups = [];
       for(let pickup of pickups){
         if(this.currentUserId == pickup.userId)
@@ -52,16 +52,6 @@ export class PickupsPage implements OnInit ,OnDestroy {
         }
       }
       this.pickups = this.usersPickups;  
-    });
-    
-  }
-
-  ionViewWillEnter(){
-    //prebacili iz ngOnInit metode
-    console.log('ionViewWillEnter');
-    this.pickupsService.getPickups().subscribe( (pickups) => {
-     
-      // this.pickups = this.pickups;
 
     });
     
