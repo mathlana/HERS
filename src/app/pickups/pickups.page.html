@@ -9,11 +9,15 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
+  <ion-refresher slot="fixed" (ionRefresh)="handleRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+  <ion-buttons>
+      <ion-button>Pull to refresh</ion-button>
+      <ion-fab-button (click)="openModal()" size="small" color="primary" slot="end">
+        <ion-icon name="add"></ion-icon>
+      </ion-fab-button>
+  </ion-buttons>
  <app-pickup-card *ngFor="let pickup of pickups" [pickup]="pickup" [routerLink]="pickup.id"></app-pickup-card>
- <ion-buttons class="add-button">
-  <ion-fab-button (click)="openModal()" size="small" color="primary" slot="end">
-    <ion-icon name="add"></ion-icon>
-  </ion-fab-button>
-</ion-buttons>
 </ion-content>
 

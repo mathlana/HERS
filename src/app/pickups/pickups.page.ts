@@ -24,6 +24,30 @@ export class PickupsPage implements OnInit ,OnDestroy {
   constructor(private modalCtrl: ModalController, private authService: AuthService,private pickupsService: PickupsService) { 
   }
 
+  handleRefresh(event: any) {
+    setTimeout(() => {
+      this.pickupsService.getPickups().subscribe( (pickups) => {
+        this.usersPickups = [];
+        for(let pickup of pickups){
+          if(this.currentUserId == pickup.userId)
+          {          
+            this.usersPickups.push(new PickupModel( pickup.id,
+              pickup.status,
+              pickup.address,
+              pickup.city,
+              pickup.zip,
+              pickup.createdAt,
+              pickup.updatedAt,
+              pickup.notes, 
+              pickup.userId));          
+          }
+        }
+        this.pickups = this.usersPickups;  
+  
+      });
+      event.target.complete();
+    }, 2000);
+  } 
   ngOnInit() {
     this.authService.userId.subscribe(
       (userId) => {
@@ -35,7 +59,6 @@ export class PickupsPage implements OnInit ,OnDestroy {
 
   ionViewWillEnter(){
     this.pickupsService.getPickups().subscribe( (pickups) => {
-     
       this.usersPickups = [];
       for(let pickup of pickups){
         if(this.currentUserId == pickup.userId)
