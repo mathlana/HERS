@@ -30,15 +30,11 @@ export class RegisterPage implements OnInit {
   }
 
   onRegister(){
-    console.log(this.registerForm);
-    this.loadingController.create({message: "Registering..."}).then((loadingEl:HTMLIonLoadingElement) => {
-      loadingEl.present();
-   this.authService.register(this.registerForm.value).subscribe(resData => {
-        console.log('registracija uspela');
-        console.log(resData);
-        loadingEl.dismiss();
-        this.router.navigateByUrl('/pickups');
-      })
+    this.loadingController.create({message: "Registering user..."}).then((loadingEl:HTMLIonLoadingElement) => {
+        loadingEl.present();
+        this.authService.register(this.registerForm.value).subscribe(resData => {
+                                                                                    loadingEl.dismiss();
+                                                                                    this.router.navigateByUrl('/pickups'); });
     })
   }
 

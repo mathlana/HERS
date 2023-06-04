@@ -18,11 +18,8 @@ export class PickupPage implements OnInit {
               private loadingCtrl:LoadingController, private modalCtrl: ModalController) { }
 
   ngOnInit() {
-    console.log('onInit');
     this.route.paramMap.subscribe(paramMap => {
       if (!paramMap.has('pickupId')) {
-        // ako koristimo router, nece biti dobra back animacija,
-        // iako svakako i on koristi angular router, samo podesava da se vidi dobra animacija
         this.navCtrl.navigateBack('/pickups');
         return;
       }
@@ -36,7 +33,6 @@ export class PickupPage implements OnInit {
     });
   }
   onDeletePickup() {
-    console.log('delete');
     this.loadingCtrl.create({message: 'Deleting...'}).then(loadingEl => {
       loadingEl.present();
       this.pickupsService.deletePickup(this.pickup.id).subscribe(() => {
@@ -49,7 +45,6 @@ export class PickupPage implements OnInit {
   }
 
   onEditPickup() {
-    console.log('edit');
     this.modalCtrl
       .create({
         component: PickupCardModalComponent,
@@ -89,7 +84,6 @@ export class PickupPage implements OnInit {
                   this.pickup.zip = resultData.data.pickupData.zip;
                   this.pickup.notes = resultData.data.pickupData.notes;
                   loadingEl.dismiss();
-
                 });
             });
         }

@@ -24,25 +24,21 @@ interface UserData{
   providedIn: 'root'
 })
 export class AuthService {
-  // private _isUserAuthenticated = false;
-  //vratiti na false
-  private _isUserAuthenticated = true;
-  private _user = new BehaviorSubject<User | null>(null);
 
+  private _user = new BehaviorSubject<User | null>(null);
 
   constructor( private http:HttpClient) { }
 
   get isUserAuthenticated() {
-    // return this._isUserAuthenticated;
     return this._user.asObservable().pipe(
-      map((user) => {
-        if(user){
-          return !!user.token;
-        } else{
-          return false;
-        }
-      })
-    );
+                                            map((user) => {
+                                                            if(user){
+                                                              return !!user.token;
+                                                            } else{
+                                                              return false;
+                                                            }
+                                                          })
+                                          );
 
   }
 
@@ -72,9 +68,6 @@ export class AuthService {
   }
 
   register(user: UserData){
-
-    this._isUserAuthenticated = true;
-
     return this.http.post<AuthResponseData>(`https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=${environment.firebaseAPI}`, 
     {email: user.email, password: user.password, returnSecureToken:true})
     .pipe(
@@ -87,7 +80,6 @@ export class AuthService {
   }
 
   login(user: UserData){
-   this._isUserAuthenticated = true;
    return this.http.post<AuthResponseData>(`https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=${environment.firebaseAPI}`,
     {email: user.email, password: user.password, returnSecureToken:true})
     .pipe(

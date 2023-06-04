@@ -66,23 +66,14 @@ export class PickupsPage implements OnInit ,OnDestroy {
     .then((modal) => {
       modal.present();
       return modal.onDidDismiss(); 
-      //vraca promise
     }).then((resultData) => {
       if(resultData.role === 'confirm'){
-        console.log(resultData);
-        //posto je rezultat post metode observable mi se subscribujemo na nju 
-        //tako dodajemo u firebase objekte
         this.pickupsService.createPickup( resultData.data.pickupData.status,
                                           resultData.data.pickupData.address,
                                           resultData.data.pickupData.city,
                                           resultData.data.pickupData.zip,
                                           resultData.data.pickupData.notes
-          ).subscribe(
-          (pickups) => {
-          //hocemo da dobijemo novi prosireni niz - i dobijamo ga iz metode createPickup
-          // console.log(res);
-          // this.pickups = pickups;
-        });
+          ).subscribe((pickups) => {});
       }
     });
   }
