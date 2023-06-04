@@ -28,37 +28,43 @@ export class PickupsPage implements OnInit ,OnDestroy {
   ngOnInit() {
     //dodajjemo citate sa firebase-a na aplikaciju -next metoda
     //kakoje sad pickus observable onda se subsc na nju
+    console.log('onInit');
     this.authService.userId.subscribe(
       (userId) => {
         this.currentUserId = userId;
       }
     );
     this.pickupSubscription = this.pickupsService.pickups.subscribe( (pickups) => {
-      // this.pickups = pickups;
+
+      this.usersPickups = [];
+      for(let pickup of pickups){
+        if(this.currentUserId == pickup.userId)
+        {          
+          this.usersPickups.push(new PickupModel( pickup.id,
+            pickup.status,
+            pickup.address,
+            pickup.city,
+            pickup.zip,
+            pickup.createdAt,
+            pickup.updatedAt,
+            pickup.notes, 
+            pickup.userId));          
+        }
+      }
+      this.pickups = this.usersPickups;  
     });
+    
   }
 
   ionViewWillEnter(){
     //prebacili iz ngOnInit metode
+    console.log('ionViewWillEnter');
     this.pickupsService.getPickups().subscribe( (pickups) => {
-      for(let pickup of pickups){
-        if(this.currentUserId == pickup.userId)
-        {
-          console.log('napravio trenutni user!');
-          this.usersPickups.push(new PickupModel( pickup.id,
-                                                  pickup.status,
-                                                  pickup.address,
-                                                  pickup.createdAt,
-                                                  pickup.updatedAt,
-                                                  pickup.notes, 
-                                                  pickup.userId));
-          console.log(this.usersPickups);
+     
+      // this.pickups = this.pickups;
 
-        }
-      }
-      console.log(this.usersPickups)
-      this.pickups = this.usersPickups;
     });
+    
   }
 
   openModal(){
@@ -76,7 +82,11 @@ export class PickupsPage implements OnInit ,OnDestroy {
         console.log(resultData);
         //posto je rezultat post metode observable mi se subscribujemo na nju 
         //tako dodajemo u firebase objekte
-        this.pickupsService.createPickup(resultData.data.pickupData.status,resultData.data.pickupData.address,resultData.data.pickupData.notes
+        this.pickupsService.createPickup( resultData.data.pickupData.status,
+                                          resultData.data.pickupData.address,
+                                          resultData.data.pickupData.city,
+                                          resultData.data.pickupData.zip,
+                                          resultData.data.pickupData.notes
           ).subscribe(
           (pickups) => {
           //hocemo da dobijemo novi prosireni niz - i dobijamo ga iz metode createPickup

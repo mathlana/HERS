@@ -11,13 +11,14 @@ import { PickupCardModalComponent } from '../pickup-card-modal/pickup-card-modal
   styleUrls: ['./pickup.page.scss'],
 })
 export class PickupPage implements OnInit {
-  @Input() pickup: PickupModel = {id:'p3',status: 'hold', address:'addr', createdAt: '11/04/2022',updatedAt: '13/04/2022',notes:' Two pair of pants.',userId:'xx'};
+  @Input() pickup: PickupModel = {id:'p3',status: 'hold', address:'addr',city:'city',zip:'31230', createdAt: '11/04/2022',updatedAt: '13/04/2022',notes:' Two pair of pants.',userId:'xx'};
   isLoading = false;
 
   constructor(private route: ActivatedRoute, private pickupsService: PickupsService, private navCtrl: NavController,
               private loadingCtrl:LoadingController, private modalCtrl: ModalController) { }
 
   ngOnInit() {
+    console.log('onInit');
     this.route.paramMap.subscribe(paramMap => {
       if (!paramMap.has('pickupId')) {
         // ako koristimo router, nece biti dobra back animacija,
@@ -35,6 +36,7 @@ export class PickupPage implements OnInit {
     });
   }
   onDeletePickup() {
+    console.log('delete');
     this.loadingCtrl.create({message: 'Deleting...'}).then(loadingEl => {
       loadingEl.present();
       this.pickupsService.deletePickup(this.pickup.id).subscribe(() => {
@@ -47,10 +49,16 @@ export class PickupPage implements OnInit {
   }
 
   onEditPickup() {
+    console.log('edit');
     this.modalCtrl
       .create({
         component: PickupCardModalComponent,
-        componentProps: {title: 'Edit pickup', status: this.pickup.status, address: this.pickup.address, notes: this.pickup.notes},
+        componentProps: { title: 'Edit pickup',
+                          status: this.pickup.status,
+                          address: this.pickup.address,
+                          city: this.pickup.city,
+                          zip: this.pickup.zip,
+                           notes: this.pickup.notes},
       })
       .then((modal) => {
         modal.present();
@@ -67,6 +75,8 @@ export class PickupPage implements OnInit {
                   this.pickup.id,
                   resultData.data.pickupData.status,
                   resultData.data.pickupData.address,
+                  resultData.data.pickupData.city,
+                  resultData.data.pickupData.zip,
                   this.pickup.createdAt,
                   this.pickup.updatedAt,
                   resultData.data.pickupData.notes,
@@ -75,8 +85,11 @@ export class PickupPage implements OnInit {
                 .subscribe((pickups) => {
                   this.pickup.status = resultData.data.pickupData.status;
                   this.pickup.address = resultData.data.pickupData.address;
+                  this.pickup.city = resultData.data.pickupData.city;
+                  this.pickup.zip = resultData.data.pickupData.zip;
                   this.pickup.notes = resultData.data.pickupData.notes;
                   loadingEl.dismiss();
+
                 });
             });
         }

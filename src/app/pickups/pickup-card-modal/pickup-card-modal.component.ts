@@ -26,6 +26,8 @@ export class PickupCardModalComponent  implements OnInit {
       pickupData: {
         status:this.form.value['status'],
         address: this.form.value['address'],
+        city: this.form.value['city'],
+        zip: this.form.value['zip'],
         notes: this.form.value['notes']
       }
     }, 'confirm');

@@ -4,10 +4,14 @@ import { HttpClient } from '@angular/common/http';
 import {map, switchMap, take, tap} from 'rxjs/operators';
 import { BehaviorSubject } from 'rxjs';
 import { AuthService } from '../auth/auth.service';
+import {NavController} from '@ionic/angular';
+
 
 interface PickupData{
   status: string;
   address: string;
+  city: string;
+  zip: string;
   createdAt: string;
   updatedAt:string;
   notes: string;
@@ -21,7 +25,7 @@ export class PickupsService {
   //definisemo nase pickupe kao subject-aktivniji observable na koji cemo se mi pretplatiti i sami voditi racuna o next medodama (ono unutar subscribe)-kada ce se one pozivati - brinemo u servisu(getPickups metod)
   private _pickups = new BehaviorSubject<PickupModel[]>([]);
 
-  constructor(private http: HttpClient, private authService:AuthService) { }
+  constructor(private http: HttpClient, private navCtrl: NavController,private authService:AuthService) { }
 
   //getter za pickup promenljivu definisanu gore
   get pickups() {
@@ -31,11 +35,11 @@ export class PickupsService {
 
   }
 
-  createPickup(status: string,address:string, notes:string){
+  createPickup(status: string,address:string,city:string,zip:string, notes:string){
     let generatedId:any;
     let newPickup: PickupModel;
     let fetchedUserId: string | null;
-
+    console.log('creeatePickup service');
    return this.authService.userId.pipe(
       take(1),
       switchMap(userId => {
@@ -48,6 +52,8 @@ export class PickupsService {
           null,
           status,
           address,
+          city,
+          zip,
           '11/11/2022',
           '11/11/2022',
           notes,
@@ -65,13 +71,14 @@ export class PickupsService {
       tap((pickups) => {
         newPickup.id = generatedId;
         this._pickups.next(pickups.concat(newPickup));
+        this.navCtrl.navigateBack('/pickups');
+
       })
     );
     
     //povratna vrednost je id pickupa mi je presrecemo sa map operatorom i prosirujemo niz u servisu sa upravo dodatim citatom
   }
   getPickups() {
-    let currentUserId: string | null;
     return this.authService.token.pipe(
       take(1),
       switchMap((token) => {
@@ -89,6 +96,8 @@ export class PickupsService {
             pickups.push(new PickupModel(key,
               pickupsData[key].status,
               pickupsData[key].address,
+              pickupsData[key].city,
+              pickupsData[key].zip,
               pickupsData[key].createdAt,
               pickupsData[key].updatedAt,
               pickupsData[key].notes, 
@@ -118,6 +127,8 @@ export class PickupsService {
           id,
           resData.status,
           resData.address,
+          resData.city,
+          resData.zip,
           resData.createdAt,
           resData.updatedAt,
           resData.notes,
@@ -130,11 +141,15 @@ export class PickupsService {
     id: string | null,
     status: string,
     address: string,
+    city: string,
+    zip: string,
     createdAt: string,
     updatedAt: string,
     notes: string,
     userId: string | null
   ) {
+    console.log('editPickup service');
+
     return this.authService.token.pipe(
       take(1),
       switchMap((token) => {
@@ -143,6 +158,8 @@ export class PickupsService {
           {
             status,
             address,
+            city,
+            zip,
             createdAt,
             updatedAt,
             notes,
@@ -161,12 +178,15 @@ export class PickupsService {
           id,
           status,
           address,
+          city,
+          zip,
           createdAt,
           updatedAt,
           notes,
           userId
         );
         this._pickups.next(updatedPickups);
+
       })
     );
   }
@@ -174,6 +194,8 @@ export class PickupsService {
   deletePickup(id: string | null) {
     console.log('id');
     console.log(id);
+    console.log('deletePickup service');
+
 
     return this.authService.token.pipe(
       take(1),
