@@ -12,6 +12,6 @@ export class AppComponent {
 
   onLogOut() {
     this.authService.logOut();
-    this.router.navigateByUrl('/log-in');
+    window.location.reload();
   }
 }
