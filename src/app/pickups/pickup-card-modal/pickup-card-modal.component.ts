@@ -9,15 +9,15 @@ import { ModalController } from '@ionic/angular';
 })
 export class PickupCardModalComponent  implements OnInit {
 
-  @ViewChild('form', {static: true}) form: NgForm;
-  constructor(private modalCtrl: ModalController) { }
   @Input() title: string;
   @Input() status: string;
   @Input() address: string;
   @Input() city: string;
   @Input() zip: string;
   @Input() notes: string;
+  @ViewChild('form', {static: true}) form: NgForm;
 
+  constructor(private modalCtrl: ModalController) { }
 
   ngOnInit() {}
 
